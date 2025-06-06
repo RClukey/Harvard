@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Advanced Search</title>
+        <style>
+            #extraneous-links {
+                text-align: right;
+                padding: 10px;
+            }
+
+            #google-search {
+                text-align: center;
+                padding: 10px;
+                width: 150px;
+                position: relative;
+                background-color: blue;
+                color: white;
+                font-weight: bold;
+            }
+            
+            .true-center {
+                display: table;
+                width: 700px;
+                padding: 20px;
+            }
+
+            .advanced {
+                width: 400px;
+                margin: 10px;
+            }
+
+            .words {
+                width: 300px;
+                padding: 10px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="extraneous-links">
+            <a href="index.html">Google Search</a>
+        </div>
+
+        <div class="true-center">
+            <form action="https://www.google.com/search">
+                <table>
+                    <tr>
+                        <td class="words">
+                            all these words:
+                        </td>
+                        <td>
+                            <input type="text" class="advanced" id="all" name="as_q" value="">
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="words">
+                            this exact word or phrase:
+                        </td>
+                        <td>
+                            <input type="text" class="advanced" id="exact" name="as_epq" value="">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="words">
+                            any of these words:
+                        </td>
+                        <td>
+                            <input type="text" class="advanced" id="any" name="as_oq" value="">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="words">
+                            none of these words:
+                        </td>
+                        <td>
+                            <input type="text" class="advanced" id="none" name="as_eq" value="">
+                        </td>
+                    </tr>
+                </table>
+                
+                <table style="padding:10px;">
+                    <tr>
+                        <td style="width:100px;"></td>
+                        <td style="width:425px;"></td>
+                        <td>
+                            <div>
+                                <input type="submit" id="google-search" value="Advanced Search" data-toggles="button">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <style>
+            #search {
+                border-radius: 10px;
+                width: 500px;
+                height: 20px;
+            }
+
+            #extraneous-links {
+                text-align: right;
+                padding: 10px;
+            }
+
+            #google-search, #lucky {
+                width: 150px;
+                text-align: center;
+                padding: 10px;
+            }
+            
+            .true-center {
+                margin: 0 auto;
+                width: 500px;
+                position: relative;
+                padding: 200px;
+            }
+
+            form > div {
+                margin: 0 auto;
+                width: 304px;
+                position: relative;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="extraneous-links">
+            <a href="image-search.html">Google Image Search</a>
+            <a href="advanced-search.html">Google Advanced Search</a>
+        </div>
+
+        <div class="true-center">
+            <form action="https://www.google.com/search">
+                <input type="text" id="search" name="q" placeholder="">
+                <div>
+                    <input type="submit" id="google-search" value="Google Search">
+                    <input type="submit" id="lucky" value="I'm feeling lucky" name="btnI">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

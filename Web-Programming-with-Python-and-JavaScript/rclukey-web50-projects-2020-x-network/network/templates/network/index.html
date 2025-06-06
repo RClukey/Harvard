@@ -1,0 +1,78 @@
+{% extends "network/layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="message">{{ message }}</h1>
+    
+    {% if message != "All Posts" and message != "Following" %}
+        <div class="black-border" id="followers">
+            <h4>Following: {{ num_following }}</h4>
+            <h4>Followers: {{ num_followers }}</h4>
+            {% if user.username != post_username and user.is_authenticated %}
+                {% if is_following %}
+                    <form action="{% url 'unfollow' user=post_username %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Unfollow">
+                    </form>
+                {% else %}
+                    <form action="{% url 'follow' user=post_username %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Follow">
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated and message == "All Posts" %}
+        <div class="black-border">
+            <h4>New Post:</h4>
+            <form action="{% url 'new_posting' %}" method="POST">
+                {% csrf_token %}
+                <textarea class="form-control" id="new_post" name="new_post" placeholder=""></textarea>
+                <input class="btn btn-primary" type="submit" value="Post" id="submit_post">
+            </form>
+        </div>
+    {% endif %}
+    <div class="all_posts">
+        {% for post in posts %}
+            <div class="single_post">
+                <a href="{% url 'profile' user=post.poster.username %}"><h4>{{ post.poster.username }}</h4></a>
+                <h6 class="timestamp">{{ post.timestamp }}</h6>
+                <p class="content" id="message_{{ post.id }}">{{ post.message }}</p>
+                {% if post.poster.id == user.id  %}
+                    <button class="edit" onclick="edit({{ post.id }})" id="edit_post_button_{{ post.id }}">Edit</button>
+                    <div class="save_edit" id="edit_post_div_{{ post.id }}">
+                        <textarea class="form-control content" name="edit_post" id="edit_post_{{ post.id }}">{{ post.message }}</textarea>
+                        <button class="btn btn-primary content" onclick="edit_post({{ post.id }})">Save Edit</button>
+                    </div>
+                    </br>
+                    <strong>Likes: <b id="like_count_{{ post.id }}">{{ post.liked_post.count }}</b></strong>
+                {% else %}
+                    {% if user.is_authenticated %}
+                        {% if post.id in liked_posts %}
+                            <strong>Likes: <b id="like_count_{{ post.id }}">{{ post.liked_post.count }}</b></strong>&emsp;&emsp;<button class="btn btn-primary liked" onclick="liked({{ post.id }})" id="unlike_btn_{{ post.id }}">Unlike</button>
+                        {% else %}
+                            <strong>Likes: <b id="like_count_{{ post.id }}">{{ post.liked_post.count }}</b></strong>&emsp;&emsp;<button class="btn btn-primary liked" onclick="liked({{ post.id }})" id="like_btn_{{ post.id }}">Like</button>
+                        {% endif %}
+                    {% else %}
+                        <strong>Likes: <b id="like_count_{{ post.id }}">{{ post.liked_post.count }}</b></strong>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if posts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
