@@ -1,0 +1,103 @@
+{% extends "EasyApps/layout.html" %}
+
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('applications').style.display = 'none';
+            document.getElementById('apply').style.display = 'none';
+        })
+
+        function edit_quest(questions, answers) {
+            document.getElementById('apply').style.display = 'block';
+            document.getElementById('edit_questions').style.display = 'none';
+
+            edit_questions(questions, answers);
+        }
+
+        function view_quest(questions) {
+            document.getElementById('apply').style.display = 'block';
+            document.getElementById('view_questions').style.display = 'none';
+
+            view_questions(questions);
+        }
+
+        function view_apps() {
+            document.getElementById('applications').style.display = 'block';
+            document.getElementById('view_apps').style.display = 'none';
+        }
+    </script>
+{% endblock %}
+
+<strong>{{ question_answer.question }}</strong>
+                    <p>{{ question_answer.answer }}</p>
+
+{% block body %}
+    <div class="padding-20 margin-20 table table-striped-columns">
+        <h2>{{ college.college_name }}</h2>
+        </br>
+        <table>
+            <tr>
+                <td text-align="left"><strong>Location: </strong></td>
+                <td text-align="left">{{ college.location }}</td>
+            </tr>
+            <tr>
+                <td text-align="left"><strong>Acceptance Rate: </strong></td>
+                <td text-align="left">{{ college.accept_rate }}%</td>
+            </tr>
+            <tr>
+                <td text-align="left"><strong>Tuition: </strong></td>
+                <td text-align="left">${{ college.tuition }}</td>
+            </tr>
+            <tr>
+                <td text-align="left"><strong>Student to Faculty Ratio: </strong></td>
+                <td text-align="left">{{ college.student_to_faculty }}</td>
+            </tr>
+            <tr>
+                <td text-align="left"><strong>Undergraduate Enrollment: </strong></td>
+                <td text-align="left">{{ college.school_size }}</td>
+            </tr>
+        </table>
+        </br>
+        {% if user.is_authenticated %}
+            {% if user.university == college.college_name %}
+                <button class="btn btn-primary apply" onclick="view_apps()" id="view_apps">View Applications</button>
+            {% elif user.university == "" %}
+                {% if not_submitted %}
+                    {% if edit_app %}
+                        <button class="btn btn-primary apply" onclick="edit_quest({{ questions }}, {{ answers }})" id="edit_questions">Edit Application to {{ college.college_name }}</button>
+                    {% else %}
+                        <button class="btn btn-primary apply" onclick="view_quest({{ questions }})" id="view_questions">Apply to {{ college.college_name }}</button>
+                    {% endif %}
+                {% elif application_status == "" %}
+                    <div class="alert alert-secondary margin-right-20">Your application in under review!</div>
+                {% elif application_status == "Accept" %}
+                    <div class="alert alert-success margin-right-20">CONGRATULATIONS! You have been accepted to {{ college.college_name }}!</div>
+                {% elif application_status == "Deny" %}
+                    <div class="alert alert-danger margin-right-20">We are sorry, but {{ college.college_name }} has chosen not to accept your application.</div>
+                {% endif %}
+            {% elif user.university != "" %}
+                </br>
+                You are an administrator from {{ user.university }}. You cannot apply to this university.
+            {% endif %}
+        {% endif %}
+    </div>
+    <div id="applications" class="margin-20 padding-20 border">
+        {% for app in all_applications %}
+            <div class="padding-20 border"><a href="{% url 'profile' user=app.user.username %}">{{ app.user.username }}</a></div>
+        {% empty %}
+            There are no applications.
+        {% endfor %}
+    </div>
+    <div class="margin-20 padding-20 border" id="apply">
+        <form action="{% url 'apply' college_id=college.id %}" method="POST">
+            {% csrf_token %}
+            <div id="application_form">
+            </div>
+            </br>
+            <input type="submit" name="save_application" value="Save Application" class="btn btn-primary">
+            <input type="submit" name="submit_application" value="Submit Application" class="btn btn-primary">
+            </br>
+            Only submit when you are finished with all essays. You will not be able to edit your application afterwards.
+        </form>
+    </div>
+{% endblock %}

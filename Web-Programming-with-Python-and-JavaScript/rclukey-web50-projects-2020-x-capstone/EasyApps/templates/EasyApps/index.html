@@ -1,0 +1,14 @@
+{% extends "EasyApps/layout.html" %}
+
+{% block body %}
+    <div class="padding-20 margin-20">
+        <div class="d-flex justify-content-center"><strong id="welcome">Welcome to IvyApps!</strong></div>
+        <div class="d-flex justify-content-center"><p id="welcome-submessage">Your one-stop shop to apply to any and all Ivy league universities!</p></div>
+        </br>   
+        {% for university in universities %}
+            <div class="d-flex justify-content-center margin-20">
+                <a href="{% url 'uni' college=university.id %}">{{ university.college_name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

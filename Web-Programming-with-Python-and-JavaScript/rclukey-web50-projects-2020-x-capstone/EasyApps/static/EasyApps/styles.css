@@ -1,0 +1,37 @@
+#welcome {
+    font-size: 50px;
+    font-family: Helvetica;
+}
+
+#welcome-submessage {
+    font-size: 30px;
+    font-family: Helvetica;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.margin-20 {
+    margin: 20px;
+}
+
+.apply {
+    margin-top: 20px;
+}
+
+.margin-10 {
+    margin: 10px;
+}
+
+.border {
+    border: 1px solid black;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}

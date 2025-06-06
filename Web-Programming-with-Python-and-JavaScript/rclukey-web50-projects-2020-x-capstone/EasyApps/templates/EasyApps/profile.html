@@ -1,0 +1,98 @@
+{% extends "EasyApps/layout.html" %}
+
+
+{% block body %}
+    <table>
+        <tr>
+            <td><h1 class="padding-20">{{ profile_user.username }}'s Profile</h1></td>
+            <td text-align="right"><img class="margin-20" style="width:100px;" src="{{ profile_user.picture }}" alt="User Profile Picture"></td>
+        </tr>
+    </table>
+    
+    {% if request.user.id == profile_user.id and profile_user.university == "" %}
+        <form action="{% url 'edit_profile' user_id=user.id %}" method="POST">
+            {% csrf_token %}
+            <div class="margin-20">
+                <table>
+                    <tr>
+                        <td text-align="left" class="margin-20">Age:</td>
+                        <td text-align="right" class="margin-20"><input type="number" value="{{ profile_user.age }}" id="age" name="age"></td>
+                    </tr>
+                    <tr>
+                        <td text-align="left" class="margin-20">Gender:</td>
+                        <td text-align="right" class="margin-20"><input type="text" value="{{ profile_user.gender }}" id="gender" name="gender"></td>
+                    </tr>
+                    <tr>
+                        <td text-align="left" class="margin-20">Ethnicity:</td>
+                        <td text-align="right" class="margin-20"><input type="text" value="{{ profile_user.ethnicity }}" id="ethnicity" name="ethnicity"></td>
+                    </tr>
+                    <tr>
+                        <td text-align="left" class="margin-20">Military:</td>
+                        <td text-align="right" class="margin-20"><input type="text" value="{{ profile_user.military }}" id="military" name="military"></td>
+                    </tr>
+                    <tr>
+                        <td text-align="left" class="margin-20">Picture Url:</td>
+                        <td text-align="right" class="margin-20"><input type="url" value="{{ profile_user.picture }}" id="picture" name="picture"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="margin-20">
+                <strong>Personal Question: </strong>
+                </br>
+                The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?
+                </br>
+                <textarea class="form-control" name="personal" rows="4">{{ profile_user.personal }}</textarea>
+            </div>
+            <input type="submit" class="btn btn-primary margin-20" value="Update Profile">
+        </form>
+    {% else %}
+        <div class="padding-20 margin-20">
+            <table>
+                <tr>
+                    <td text-align="left" class="margin-20"><strong>Name:</strong></td>
+                    <td text-align="right" class="margin-20">{{ profile_user.username }}</td>
+                </tr>
+                <tr>
+                    <td text-align="left" class="margin-20"><strong>Age:</strong></td>
+                    <td text-align="right" class="margin-20">{{ profile_user.age }}</td>
+                </tr>
+                <tr>
+                    <td text-align="left" class="margin-20"><strong>Gender:</strong></td>
+                    <td text-align="right" class="margin-20">{{ profile_user.gender }}</td>
+                </tr>
+                <tr>
+                    <td text-align="left" class="margin-20"><strong>Ethnicity:</strong></td>
+                    <td text-align="right" class="margin-20">{{ profile_user.ethnicity }}</td>
+                </tr>
+                <tr>
+                    <td text-align="left" class="margin-20"><strong>Military:</strong></td>
+                    <td text-align="right" class="margin-20">{{ profile_user.military }}</td>
+                </tr>
+            </table>
+            </br>
+            <strong>Personal Question: </strong>
+            </br>
+            <strong>The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</strong>
+            </br>
+            <p>{{ profile_user.personal }}</p>
+        </div>
+        {% if request.user.university != "" and application != "" and application_status == "" %}
+            <div class="padding-20 margin-20 border">
+                <strong>Application to: </strong> {{ application_college }}
+                </br>
+                </br>
+                {% for question_answer in application %}
+                    <strong>{{ question_answer.question.essay_question }}</strong>
+                    </br>
+                    <p class="margin-bottom-20">{{ question_answer.essay_answer }}</p>
+                    </br>
+                {% endfor %}
+                <form action="{% url 'accept' college=application_college profile=profile_user.username %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Accept" name="accept" class="btn btn-success">
+                    <input type="submit" value="Deny" name="deny" class="btn btn-danger">
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
