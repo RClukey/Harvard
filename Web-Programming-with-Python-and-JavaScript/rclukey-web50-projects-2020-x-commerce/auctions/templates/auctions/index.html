@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ message }}</h2>
+
+    <div class="row">
+        {% for listing in active %}
+            <div class="card" style="width: 18rem; margin: 20px">
+                <img class="card-img-top" src="{{ listing.image_url }}" alt="{{ listing.listing_name }}">
+                <div class="card-body">
+                    <a href="{% url 'lis' num=listing.id%}"><h5 class="card-title">{{ listing.listing_name }}</h5></a>
+                <p class="card-text">{{ listing.description }}</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Listed by: </b>{{ listing.listed_by }}</li>
+                        <li class="list-group-item"><b>Bid: </b>{{ listing.price.bid }}</li>
+                        <li class="list-group-item"><b>Category: </b>{{ listing.category }}</li>
+                    </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
