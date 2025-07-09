@@ -1,11 +1,11 @@
-#RDC890444
+# RDC890444
 
-Distinctiveness and Complexity.
+## Distinctiveness and Complexity.
 
 This application, IvyApps, is a clone of the Common App college application system. None of the projects done during this class or done previously were similar to this application. This website allows users to create an account and update their profile with information about themself and answer the Personal Question. The profile and the personal question will be available for all college admissions teams to view when the user has applied to the college that they represent. An applicant can view any of the eight Ivy League school websites and can apply to as many of them as the applicant wants to. If an applicant begins their application to a college, but doesn't complete their application, then the applicant can save the application and return to fill out the rest at a later date. When the applicant is finished with their application, they will submit their application to the college. When a college admissions team view their college's website, they see a button that lets them view all users that have applied to their university. The admissions team sees a link that takes the admissions team to the applicants profile. If an admissions team goes to the university page of a university other than their own, they are shown a message that tells them they are not allowed to apply to the other university because they represent a different university. In the applicants profile page, the admissions team can see the information that the applicant has provided about themself, the personal question that IvyApps gives to all users, and the answers to the universities supplemental questions. If a user applies to multiple universities, the admissions team will only be able to see the users application to their own university. On the applicants profile page, the admissions team can choose whether they wish to accept or reject the application. After the user submits their application, the applicant is shown a message that their application is under review. If the application team accepts the application, then the applicant is shown a message that they were accepted to the university. If the applications team chooses to reject the application, then the applicant is shown a message that the university chose not to accept them to their school. An admin of the IvyApps website is able to give the admissions teams the necessary permissions to see the applications for their university, but not for any other university.
 
 
-What’s contained in each file you created.
+## What’s contained in each file you created.
 
 In EasyApps/templates/EasyApps/college.html, an applicant will be able to learn about the college and view or edit their application to said college. Once a user has applied to the college, they will be met with a bootstrap alert that tells the applicants that their application is under review. If the college accepts the application, then the alert tells the user that they have been accepted. And if the college denies the application, then the user will be met with an alert that tells the user that they were rejected. The supplemental questions I used in the application are each universities actual supplimental questions. If a member of the universities admissions team visits their website, then they will be able to view all applications that are under review.
 In EasyApps/templates/EasyApps/index.html, every user will see a link to each Ivy League University where they will be able to visit the college page from above.
@@ -17,11 +17,11 @@ EasyApps/static/EasyApps/styles.css contains all of the css code that I used for
 EasyApps/models.py includes all the models I used. The models are: User, College, Application, Question, Answer, and Question_Answer.
 
 
-How to run your application.
+## How to run your application.
 
 My application is run in the same way that all other applications have been run. The username for each university is the name of their university as seen on the homepage with the spaces replace with underscores, and their passwords are all 1234.
 
 
-Any other additional information the staff should know about your project.
+## Any other additional information the staff should know about your project.
 
 IvyApps is an application process that lets college applicants to apply to all Ivy League Universities in the United States. An IvyApps administator is able to give the admissions teams permissions to view only the applications that correlate with the university that they represent and none other. I originally called this project EasyApps, but I changed the name to IvyApps while I was working on the project, and I didn't know how to change the name of the project without breaking everything that I had already built.
